@@ -1,65 +1,58 @@
 openapi: 3.0.3
 info:
-	title:	Restavracije API
-	description:	Iskanje restavracij na bone v bližini dane lokacije.
-	version: 1.0.0
+  title: Restavracije API
+  description: Iskanje restavracij na bone v bližini dane lokacije.
+  version: 1.0.0
 
 paths:
-	/restaurants/nearby:
-		get:
-			operationId: getNearbyRestaurants
-			summary:	Vrne nekaj najbližjih restavracij v okolici neke lokacije
-			tags: [restaurants]
-			parameters:
-				- name: lat
-					in: query
-					required: true
-					description: Zemljepisna širina
-					schema: {type: number, format: double}
-				- name: lon
-					in: query
-					required: true
-					description: Zemljepisna dolžina
-					schema: {type: number, format: double}
-				- name: radius
-					in: query
-					required: false
-					description: Največja razdalja okrog lokacije v metrih
-					schema: {type: integer, default: 1000}
-				- name: limit
-					in: query
-					required: false
-					description: Največje število vrnjenih rezultatov
-					schema: {type: integer, default: 15}
-			responses:
-				"200":
-					description: Seznam najbližjih restavracij je bil uspešno vrnjen
-					content:
-						application/json:
-							schema:
-								type: array
-								items:
-									$ref: "#/components/schemas/Restaurant"
-				"412":
-					description: Ni restavracij na bone znotraj radija za to lokacijo
+  /restaurants/nearby:
+    get:
+      operationId: getNearbyRestaurants
+      summary: Vrne nekaj najbližjih restavracij v okolici neke lokacije
+      tags: [restaurants]
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          description: Zemljepisna širina
+          schema: {type: number, format: double}
+        - name: lon
+          in: query
+          required: true
+          description: Zemljepisna dolžina
+          schema: {type: number, format: double}
+        - name: radius
+          in: query
+          required: false
+          description: Največja razdalja okrog lokacije v metrih
+          schema: {type: integer, default: 1000}
+        - name: limit
+          in: query
+          required: false
+          description: Največje število vrnjenih rezultatov
+          schema: {type: integer, default: 15}
+      responses:
+        "200":
+          description: Seznam najbližjih restavracij je bil uspešno vrnjen
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Restaurant"
+        "412":
+          description: Ni restavracij na bone znotraj radija za to lokacijo
 
 components:
-	schemas:
-		Restaurants:
-			type: object
-			properties:
-				id: {type: string}
-				name: {type: string}
-				lat: {type: number, format: double}
-				lon: {type: number, format: double}
-				distanceMeters: {type: number, format: double}
-				city: {type: string}
-				openingHours: {type: string}
-				price: {type: number, format: double}
-				#to bo potrebno spremeniti odvisno od tipa podatka
-				
-
-
-				
-
-				
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        id: {type: string}
+        name: {type: string}
+        lat: {type: number, format: double}
+        lon: {type: number, format: double}
+        distanceMeters: {type: number, format: double}
+        city: {type: string}
+        openingHours: {type: string}
+        price: {type: number, format: double}
